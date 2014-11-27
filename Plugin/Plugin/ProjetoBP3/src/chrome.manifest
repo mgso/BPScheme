@@ -1,0 +1,5 @@
+content   bp               				content/
+skin      bp  							classic/1.0   skin/
+locale    bp			  en-US         locale/en-US/
+
+overlay chrome://browser/content/browser.xul  chrome://bp/content/bp.xul

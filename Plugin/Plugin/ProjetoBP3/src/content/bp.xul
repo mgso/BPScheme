@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM 'chrome://bp/locale/bp.dtd'>
+<overlay id="BP" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript" src="sjcl.js"></script>
+ <script type="text/javascript" src="jsbn.js"></script>  
+<script type="text/javascript" src="jsbn2.js"></script>  
+<script type="text/javascript" src="prng4.js"></script>  
+<script type="text/javascript" src="rng.js"></script>  
+<script type="text/javascript" src="rsa.js"></script>  
+<script type="text/javascript" src="rsa2.js"></script>
+
+<script type="text/javascript" src="sha1.js"></script>
+<script type="text/javascript" src="sha256.js"></script>
+
+<script type="text/javascript" src="rsasign.js"></script>
+<script type="text/javascript" src="crypto.js"></script>
+<script type="text/javascript" src="paillier.js"></script>
+
+<script  src="bp.js" />
+  
+ <menupopup id="menu_ToolsPopup" insertafter="devToolsSeparator">
+  	<menu id="mn-BP-menu" insertafter="devToolsSeparator" label="Plugin BP"  >
+
+   <menupopup id="mn-BP-menu">
+      <menuitem id="mn-BP-options" label="Options and Preferences" oncommand="window.open('chrome://bp/content/options.xul','BP Options','chrome,centerscreen');"/>
+   </menupopup>
+  	
+
+    </menu>
+  </menupopup>
+ 
+ <script xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+    var myExtension = {
+    myListener: function(evt) {
+    
+      var n = evt.target.getAttribute("n");
+      var m = evt.target.getAttribute("m");
+      var info="";
+      var tag="";
+      
+      for (var i = 1; i<= n; i++) {
+	  info = info + evt.target.getAttribute("ad" + i);
+	  tag = tag + evt.target.getAttribute("tag" + i); 
+      }
+      proccessAds(info,tag);
+
+    }
+    }
+  document.addEventListener("MyExtensionEvent", function(e) { myExtension.myListener(e); }, false, true);
+// The last value is a Mozilla-specific value to indicate untrusted content is allowed to trigger the eve
+ 
+ ]]></script>    
+  
+</overlay>

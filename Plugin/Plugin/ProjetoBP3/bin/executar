@@ -1,0 +1,4 @@
+rm /Users/graca/Desktop/Doutorado-2014/implementacao/plugin/ProjetoBP3/bin/bp.xpi
+cd /Users/graca/Desktop/Doutorado-2014/implementacao/plugin/ProjetoBP3/src/
+/Applications/Xcode.app/Contents/Developer/usr/bin/make
+

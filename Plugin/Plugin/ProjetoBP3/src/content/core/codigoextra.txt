@@ -1,0 +1,411 @@
+/*   
+    var keys = sjcl.ecc.elGamal.generateKeys(384, 0); // I'm including this just for completeness
+    var key1 = keys.pub.serialize();
+    var pkey = JSON.stringify(key1);
+    console.log('pkey = ' + pkey);
+   
+    var pub = JSON.parse(pkey); 
+    console.log('depois pub = '+ pub.point);
+    var point = sjcl.ecc.curves["c384"].fromBits(pub.point);
+    console.log('depoispoint');
+    
+    var pubkey = new sjcl.ecc.elGamal.publicKey(pub.curve, point.curve, point);
+  
+    var symkey_obj = pubkey.kem(0);
+    
+    pkx = sjcl.encrypt(symkey_obj.key, JSON.stringify("alo mundo"));
+    
+    console.log('pkx = ' + pkx);
+    
+    var secret_key_string = JSON.stringify(keys.sec.serialize());
+    
+    var secret = JSON.parse(secret_key_string);
+    var exponent = sjcl.bn.fromBits(secret.exponent);
+    var secret_key = new sjcl.ecc.elGamal.secretKey(secret.curve,sjcl.ecc.curves['c'+secret.curve],exponent);
+    
+    var symkey = secret_key.unkem(symkey_obj.tag);
+    
+    var decryptedData = sjcl.decrypt(symkey, pkx);
+    
+    console.log('depois decryptData = ' + decryptedData);*/
+      
+
+
+
+/*Codigo extra
+     //encriptar
+    
+    //curve = sjcl.ecc.curves['c'+384];
+    console.log('curve.r = ' + curve.r);
+    var x = new BigInt("0xe10355e603dd193dc96048f3e3e6e6d48338de0cd8029d81c43a7696be8d455eafa41de10106f9bcc14ca95b0248935e");
+    var y = new BigInt("0x236cf78ff3a97e7dac39c28c1b50bfb55f31f293b0254aa3b676e0769d12d76ecb32d364353e13f72c757381d6a99237");
+    
+    
+    
+    var Field = sjcl.bn.prime.p384;
+    var G = new sjcl.ecc.point(curve, new Field(x), new Field(y));
+    console.log('G.x = ' + G.x);
+    console.log('G.y = ' + G.y);
+    
+    var sec = "0x07eaeb43216d82597c4c0e17cd77b9efde3cae2955c607443a665c2ae05b3bb6e0f72273cd3e43834878cc917e4c09e40";
+    //var	pub = curve.G.mult(sec);
+    
+    //var pub2 = new sjcl.ecc.elGamal.publicKey(384, curve, pub);
+    
+    "key = {"x":{"limbs":[14197022,2046265,2956796,6172770,6518481,15372302,10785275,6837326,16040944,9710431,5534729,1191173,5114072,6794885,8866100,1524619]},
+    "y":{"limbs":[2021280,13821902,1186963,5786131,2507734,2546628,563553,14414616,1678074,10680872,10023102,3892016,2187228,8383474,14250634,5675445]},
+    "curve":384}"
+    
+    
+    var sec = "0x07eaeb43216d82597c4c0e17cd77b9efde3cae2955c607443a665c2ae05b3bb6e0f72273cd3e43834878cc917e4c09e40";
+    
+    var x = [14197022,2046265,2956796,6172770,6518481,15372302,10785275,6837326,16040944,9710431,5534729,1191173,5114072,6794885,8866100,1524619];
+    var y = [2021280,13821902,1186963,5786131,2507734,2546628,563553,14414616,1678074,10680872,10023102,3892016,2187228,8383474,14250634,5675445];
+    
+    var message = JSON.stringify({ 'x': x, 'y': y});
+    var pub = JSON.parse(message);
+    
+    pubf = new sjcl.ecc. .elGamal.publicKey(384, curve, pub);
+    
+    var pubjson = pubf.pub.serialize();
+      
+    //console.log('json.x = ' + pubjson.x);
+    //console.log('json.y = ' + pubjson.y);
+    
+  //  var x = "0xe10355e603dd193dc96048f3e3e6e6d48338de0cd8029d81c43a7696be8d455eafa41de10106f9bcc14ca95b0248935e";
+  //  var y = "0x236cf78ff3a97e7dac39c28c1b50bfb55f31f293b0254aa3b676e0769d12d76ecb32d364353e13f72c757381d6a99237";
+   
+    //var point  = new sjcl.ecc.point(curve,pubjson.x,pubjson.y);
+    //console.log('point.curve = ' + point.curve);
+    //console.log('ponto valido = ' + point.isValid());
+    
+    //var pkey = '{"x":{"limbs":[14197022,2046265,2956796,6172770,6518481,15372302,10785275,6837326,16040944,9710431,5534729,1191173,5114072,6794885,8866100,1524619]},"y":{"limbs":[2021280,13821902,1186963,5786131,2507734,2546628,563553,14414616,1678074,10680872,10023102,3892016,2187228,8383474,14250634,5675445]},"curve":384}';
+   
+   
+   //Para decriptar
+    
+    /*
+    var message = JSON.stringify({ 'ciphertext': pkx, 'encrypted_key': symkey_obj.tag }); //Converte um objeto em um JSON text e armazena em uma string
+    console.log('message = ' + message);
+    
+    var cipherMessage = JSON.parse(message); //Converte uma cadeia de caracteres em um objeto JSON
+    console.log('cipherMessage.ciphertext = ' + cipherMessage.ciphertext);
+    console.log('cipherMessage.encrypted_key = ' + cipherMessage.encrypted_key);
+  
+    var privatekey_obj = new sjcl.ecc.elGamal.secretKey(384, sjcl.ecc.curves["c" +384], sec);
+    console.log('depois privatekey_obj');
+
+    var symkey = privatekey_obj.unkem(cipherMessage.encrypted_key);
+    console.log('depois symkey');
+    
+    var decryptedData = sjcl.decrypt(symkey, cipherMessage.ciphertext);
+    
+    console.log('depois decryptData = ' + decryptedData);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ /*
+    for (var i = 0; i < tree.view.rowCount; i++) {
+        cellText = tree.view.getCellText(i, tree.columns.getColumnAt(cellIndex));
+        if (tree.view.selection.isSelected(i) == true) {
+            prefs[aux] = cellText;
+            aux++;
+        }
+        cellText = tree.view.getCellText(i, tree.columns.getColumnAt(cellIndex));
+       // alert(tree.view.selection.isSelected(i));
+       // alert(cellText);
+    }
+    
+     //definicao pacote para de dados para envio a TTP
+    structuser[0] = tipo;
+    structuser[1] = email;
+    structuser[2] = update;
+    structuser[3] = optout;
+    structuser[4] = n;
+    structuser[5] = m;
+    structuser[6] = period;
+    
+    alert('antes encrypt');
+    //encryptAds();
+    //BP_generateKeys();
+    alert('depois encrypt');
+    
+    //pegando do arquivo chave publica do usuario
+    var infopubUSR = readKeys("/Users/graca/keys/usr_pubkey.pub");
+
+    var usr_pkx = infopubUSR.substring(4,102);
+    var usr_pky = infopubUSR.substring(103,204);
+ 
+    //encriptar chave publica do usuario com com a chave publica da TTP
+    var temp = sjcl.ecc.ecdsa.generateKeys(384);
+    temp.pub.x = ttp_pubkeyx;
+    temp.pub.y = ttp_pubkeyy;
+    console.log('temp.pub.x = ' + temp.pub.x);
+    console.log('temp.pub.y = ' + temp.pub.y);
+    //alert('atribuiu x e y');
+    var pubjson = temp.pub.serialize();
+    console.log('pubjson.x = ' + pubjson.x);
+    console.log('pubjson.y = ' + pubjson.y);
+        
+    var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ pubjson.curve],pubjson.x,pubjson.y);
+   // var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ curva_TTP],x, y);
+    //alert('passou point');
+ 
+    
+    
+    
+    //var publicKey = new sjcl.ecc.elGamal.publicKey(curva_TTP, point.curve, point);
+    //alert('passou publicKey');
+    
+    var symkey_obj = publicKey.kem(0);
+    //alert('simkey_obj');
+    
+    pkx = sjcl.encrypt(symkey_obj.key, JSON.stringify(usr_pkx));
+    pky = sjcl.encrypt(symkey_obj.key, JSON.stringify(usr_pky));
+
+    
+    structuser[7] = pkx;
+    structuser[8] = pky;
+    
+    //encriptando preferencias com chave publica da adnet
+    
+    //encriptar chave publica do usuario com com a chave publica da TTP
+    var temp = sjcl.ecc.ecdsa.generateKeys(384);
+    temp.pub.x = adn_pubkeyx;
+    temp.pub.y = adn_pubkeyy;
+    //alert('atribuiu x e y');
+    var pubjson = temp.pub.serialize();
+    
+        
+    var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ pubjson.curve],pubjson.x,pubjson.y);
+   // var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ curva_TTP],x, y);
+   // alert('passou point');
+ 
+    var publicKey = new sjcl.ecc.elGamal.publicKey(pubjson.curve, point.curve, point);
+    //var publicKey = new sjcl.ecc.elGamal.publicKey(curva_TTP, point.curve, point);
+   // alert('passou publicKey');
+    
+    var symkey_obj = publicKey.kem(0);
+   // alert('simkey_obj');
+    
+    ciphertext = sjcl.encrypt(symkey_obj.key, JSON.stringify(prefs));
+   // alert('ciphertext = ' + ciphertext);
+    
+    structuser[9] = ciphertext;/*
+    
+    //gerando assinatura para a mensagem a ser enviada para a TTP
+    
+   /* var temp = sjcl.ecc.ecdsa.generateKeys(384);
+    temp.sec.exponent = 0xf1fa133ec769d40fe4da539705fa0520ed84f495a616ae48cface496266f4413d5e133ff5a63465c3c0bd474430a0e6;
+    
+    var pub = temp.pub;
+    var sec = temp.sec;
+    
+    var signature = sec.sign(sjcl.hash.sha256.hash(structuser));*/
+    
+    //verificacao da assinatura
+    /*
+    try{
+        pub.verify(sjcl.hash.sha256.hash(structuser), signature);
+        alert('true');
+    } catch(e) {
+        alert('false');
+    }*/
+    
+    
+    //structuser[10] = signature;
+    
+    //BP_generateKeys();
+    
+    //encryptAds();
+
+    //decriptografar as preferencias - a usar na ADNET
+    /*
+    
+    
+    alert('depois secjson');
+   
+    var ex = sjcl.bn.fromBits(secjson.exponent);
+    //var ex = sjcl.bn.fromBits(exp);
+    alert('depois ex');
+      
+    var privatekey_obj = new sjcl.ecc.elGamal.secretKey(secjson.curve, sjcl.ecc.curves["c" +secjson.curve], ex);
+    alert('depois privatekey_obj');
+
+    var symkey = privatekey_obj.unkem(cipherMessage.encrypted_key);
+    alert('depois symkey');
+    
+    var decryptedData = sjcl.decrypt(symkey, cipherMessage.ciphertext);
+    
+    alert('depois decryptData = ' + decryptedData);
+   
+   
+   
+  */
+ 
+ 
+ 
+    //encriptar chave publica do usuario com com a chave publica da TTP
+    var temp = sjcl.ecc.ecdsa.generateKeys(384);
+    temp.pub.x = adn_pubkeyx;
+    temp.pub.y = adn_pubkeyy;
+    //alert('atribuiu x e y');
+    var pubjson = temp.pub.serialize();
+    
+        
+    var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ pubjson.curve],pubjson.x,pubjson.y);
+   // var point  = new sjcl.ecc.point(sjcl.ecc.curves["c"+ curva_TTP],x, y);
+   // alert('passou point');
+ 
+    var publicKey = new sjcl.ecc.elGamal.publicKey(pubjson.curve, point.curve, point);
+    //var publicKey = new sjcl.ecc.elGamal.publicKey(curva_TTP, point.curve, point);
+   // alert('passou publicKey');
+    
+    var symkey_obj = publicKey.kem(0);
+   // alert('simkey_obj');
+    
+    ciphertext = sjcl.encrypt(symkey_obj.key, JSON.stringify(prefs));
+   // alert('ciphertext = ' + ciphertext);
+    
+    structuser[9] = ciphertext;/*
+    
+    //gerando assinatura para a mensagem a ser enviada para a TTP
+    
+   /* var temp = sjcl.ecc.ecdsa.generateKeys(384);
+    temp.sec.exponent = 0xf1fa133ec769d40fe4da539705fa0520ed84f495a616ae48cface496266f4413d5e133ff5a63465c3c0bd474430a0e6;
+    
+    var pub = temp.pub;
+    var sec = temp.sec;
+    
+    var signature = sec.sign(sjcl.hash.sha256.hash(structuser));*/
+    
+    //verificacao da assinatura
+    /*
+    try{
+        pub.verify(sjcl.hash.sha256.hash(structuser), signature);
+        alert('true');
+    } catch(e) {
+        alert('false');
+    }*/
+    
+    
+    //structuser[10] = signature;
+    
+    
+    
+    
+    //chaves rsa
+    
+    "rsa_usr.e = 65537" bp.js:156
+"rsa_usr.n = 7668267482864872001124818095325404167716285574893621522020749932594684332116284086665522232948600084660179855124276244306576593616564459660184349725704129" bp.js:157
+"rsa_usr.d = 1623818852361241644134004082074644232106544565792967018365258824245068116653300328335934744758256287353936146646899955333811758635338305018038512258090169" bp.js:158
+"rsa_usr.p = 98342767286814698737355516163275219941152411783151841225691115939720807496803" bp.js:159
+"rsa_usr.q = 77974900385917801538597113831161054509297636829669928951212991053248470127243" bp.js:160
+"rsa_usr.dmp1 = 42317536357408201765295373778484283344682227820874697871518610260098364164019" bp.js:161
+"rsa_usr.dmq1 = 67837937276712014439571412168871169643966360363112292888159529897356730110395" bp.js:162
+"rsa_usr.coeff = 23100464045065139518229650855759669457558002531447162189428720917599244988557" bp.js:163
+
+"rsa_ttp.e = 65537" bp.js:165
+"rsa_ttp.n = 6983850959101234807340320053688033051585918044200928249333767275395258015265358243037538101574766548996112998213571455933921206771159114253879816269248171" bp.js:166
+"rsa_ttp.d = 4606419662313945969710240245369373097958473523302463119061762943276482265374797729279712647846274962181347030249215364362659480787938701262221611300921705" bp.js:167
+"rsa_ttp.p = 111215897172914267047601536221603840938369936774800578755280305552551700279663" bp.js:168
+"rsa_ttp.q = 62795437852225457455866596566613068290260118977336111224509345134405017565317" bp.js:169
+"rsa_ttp.dmp1 = 31660817455102636378032284988425818398571309495513288643625198905869311566255" bp.js:170
+"rsa_ttp.dmq1 = 53887352561288428327783349724679478167206754829872940404144308869172195673793" bp.js:171
+"rsa_ttp.coeff = 16911910700932047639918913447551468096762093151168013461527588703792346047113" bp.js:172
+
+"rsa_adn.e = 65537" bp.js:174
+"rsa_adn.n = 7901972488901148305913481529267822929044449775261838043706647423286946952547327817702500754318879299227626162379399979124815344498981473000778986211522141" bp.js:175
+"rsa_adn.d = 2521777844658246743338579217611982796908077376895514635764904265652173512863322986126153249591907893256970261893880142097440341892841635784995424148321313" bp.js:176
+"rsa_adn.p = 103727105533529459366553549681129171070135142013709577074629554544175412066917" bp.js:177
+"rsa_adn.q = 76180400949748478691918502135324686253684640705164129118782990043316063211673" bp.js:178
+"rsa_adn.dmp1 = 64092484223877740162787219346892988426158087429164736311352729164691446231133" bp.js:179
+"rsa_adn.dmq1 = 56088266271377444708217519340734039719742912908823711159185144812397373729185" bp.js:180
+"rsa_adn.coeff = 70656693723855975911741349489904741643432872764592724759788541179733978547697"
+    
+    
+        /*
+    rsa_usr.generate(lbits, "10001");
+    
+    var rsa_ttp = new RSAKey();
+    
+    rsa_ttp.generate(lbits, "10001");
+    
+    var rsa_adn = new RSAKey();
+    
+    rsa_adn.generate(lbits, "10001");
+     
+    
+    console.log('rsa_usr.e = ' + rsa_usr.e);
+    console.log('rsa_usr.n = ' + rsa_usr.n);
+    console.log('rsa_usr.d = ' + rsa_usr.d);
+    console.log('rsa_usr.p = ' + rsa_usr.p);
+    console.log('rsa_usr.q = ' + rsa_usr.q);
+    console.log('rsa_usr.dmp1 = ' + rsa_usr.dmp1);
+    console.log('rsa_usr.dmq1 = ' + rsa_usr.dmq1);
+    console.log('rsa_usr.coeff = ' + rsa_usr.coeff);
+    
+    console.log('rsa_ttp.e = ' + rsa_ttp.e);
+    console.log('rsa_ttp.n = ' + rsa_ttp.n);
+    console.log('rsa_ttp.d = ' + rsa_ttp.d);
+    console.log('rsa_ttp.p = ' + rsa_ttp.p);
+    console.log('rsa_ttp.q = ' + rsa_ttp.q);
+    console.log('rsa_ttp.dmp1 = ' + rsa_ttp.dmp1);
+    console.log('rsa_ttp.dmq1 = ' + rsa_ttp.dmq1);
+    console.log('rsa_ttp.coeff = ' + rsa_ttp.coeff);
+    
+    console.log('rsa_adn.e = ' + rsa_adn.e);
+    console.log('rsa_adn.n = ' + rsa_adn.n);
+    console.log('rsa_adn.d = ' + rsa_adn.d);
+    console.log('rsa_adn.p = ' + rsa_adn.p);
+    console.log('rsa_adn.q = ' + rsa_adn.q);
+    console.log('rsa_adn.dmp1 = ' + rsa_adn.dmp1);
+    console.log('rsa_adn.dmq1 = ' + rsa_adn.dmq1);
+    console.log('rsa_adn.coeff = ' + rsa_adn.coeff);*/
+    
+    
+    
+    Cen‡rios criptogr‡ficos
+    
+    1) 100% curvas elipticas (geracao de chaves, transmissao de chaves, criptografia da informacao)
+    2) Usar curvas elipticas para gerar chaves, gerar chave simetrica com AES e trasmitir essa chave usando ECC
+    3) Usar RSA para gerar chaves publica/privada, para transmitir a chave simetrica e criptograr tudo com a chave simetrica.
+    
+    
+    
+     
+    /*
+    
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/TTP/getInfoUser",
+        data: { param1: "email" , param2: "mgso@cin.ufpe.br" }
+    }).done(function( msg ) {
+    alert( "Data Saved: " + msg );
+    });*/
+    
+    /*
+    var xhr = new XMLHttpRequest();
+    console.log('passou1');
+    xhr.open("POST", "http://localhost:8443/TTP/getInfoUser?", true);
+    console.log('passou2');
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    console.log('passou3');
+    
+    var infos = montaString("email=mgso@cin.ufpe.br");
+    
+    xhr.send(infos);
+    console.log('passou4');
+    */
+    //enviando como um form
+    //PostObjectToUri("https://localhost:8080/", structuser);

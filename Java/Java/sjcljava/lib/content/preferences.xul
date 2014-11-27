@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE overlay SYSTEM 'chrome://bp/locale/bp.dtd'>
+
+<window id="bp-options-13-12-2012"
+  title="BP - No Tracking - Preferences"
+  orient="vertical"
+  persist="screenX screenY"
+  autostretch="always" flex="1"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+
+function onTreeSelected(){
+   var tree = document.getElementById("tree1");
+   var cellIndex = 0;
+   var cellText = tree.view.getCellText(tree.currentIndex, tree.columns.getColumnAt(cellIndex));
+   alert(cellText);
+ }
+
+]]></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="sjcl.js"></script>
+<script type="text/javascript" src="jsbn.js"></script>  
+<script type="text/javascript" src="jsbn2.js"></script>  
+<script type="text/javascript" src="prng4.js"></script>  
+<script type="text/javascript" src="rng.js"></script>  
+<script type="text/javascript" src="rsa.js"></script>  
+<script type="text/javascript" src="rsa2.js"></script>
+
+<script type="text/javascript" src="sha1.js"></script>
+<script type="text/javascript" src="sha256.js"></script>
+
+
+<script type="text/javascript" src="rsasign.js"></script>
+<script type="text/javascript" src="crypto.js"></script>
+<!--
+<script type="text/javascript" src="cryptojs.js"></script>
+<script type="text/javascript" src="base64.js"></script>
+-->
+   
+   
+  <script type="application/x-javascript" src="bp.js"/>
+  
+
+       <groupbox>
+         <caption id="preferences1" label="Preferences"  />
+	<hbox flex="1" class="test_b" width="450">
+            <tree id="tree1" flex="1" rows="15">
+                <treecols>
+                    <treecol label="Category" primary="true" flex="2"/>
+                   <!-- <treecol label="Subcategory - level 1" flex="1"/>-->
+                </treecols>
+                
+                <treechildren>
+                    <!-- tree item for cat 1 node -->
+                    <treeitem container="true" open="false">
+                        <treerow>
+                            <treecell label="Arts and Entertainment"/>
+                        </treerow>
+                    <!-- tree children for first category -->
+                        <treechildren>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Celebrities and Entertainment News"/>                                    
+                                </treerow>
+                            </treeitem>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Comics and Animation"/>
+                                </treerow>
+                            </treeitem>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Entertainment Industry"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Events and Listings"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Fun and Trivia"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Humor"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Movies"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Music and Audio"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Offbeat"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Online Media"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Performing Arts"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="TV and Video"/>
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Visual Art and Design"/>
+                                </treerow>
+                            </treeitem>
+                            
+                        </treechildren>
+                        <!-- end tree children for first category -->
+            
+                    </treeitem>
+                    <!-- tree item for cat 1 node -->
+                    <!-- tree item for cat 2 node -->
+                    <treeitem container="true" open="false">
+                        <treerow>
+                            <treecell label="Autos and Vehicles"/>
+                        </treerow>
+                        <!-- tree children for second category -->
+                        <treechildren>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Bicycles and Accessories"/>
+                        
+                                </treerow>
+                            </treeitem>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Boats and Watercraft"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Campers and RVs"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Classic Vehicles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Commercial Vehicles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Custom and Performance Vehicles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Hybrid and Alternative Vehicles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Microcars and City Cars"/>                                
+                                </treerow>
+                            </treeitem>
+                                                        
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Motorcycles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Off-Road Vehicles"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Personal Aircraft"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Scooters and Mopeds"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Trucks and SUVs"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Brands"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Codes and Driving Laws"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Maintenance"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Parts and Accessories"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Shopping"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Vehicle Shows"/>                                
+                                </treerow>
+                            </treeitem>
+                            
+                        </treechildren>
+                    <!-- end tree children for second category -->
+                    </treeitem>                  
+                    <!-- end tree item for cat 2 node -->
+                    
+                    <treeitem container="true" open="false">
+                        <treerow>
+                            <treecell label="Beauty and Fitness"/>
+                        </treerow>
+                    <!-- tree children for first category -->
+                        <treechildren>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Beauty Pageants"/>
+                              
+                                </treerow>
+                            </treeitem>
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Body Art"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Cosmetology and Beauty Professionals"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Face and Body Care"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Fashion and Style"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Fitness"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Hair Care"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                            
+                            <treeitem>
+                                <treerow>
+                                    <treecell label="Spas and Beauty Services"/>
+                                    
+                                </treerow>
+                            </treeitem>
+                        </treechildren>
+                        <!-- end tree children for first category -->
+            
+                    </treeitem>
+                    
+                    
+                    
+                </treechildren>
+            </tree>
+            </hbox>
+          
+       </groupbox>   
+
+ 		         
+       <vbox align="center">      
+         <button label="Send" oncommand="userClass(window.arguments[0], window.arguments[1], window.arguments[2], window.arguments[3], window.arguments[4], window.arguments[5], window.arguments[6], 0,document.getElementById('tree1'));sendInfo();window.close();" tooltiptext="Send options" size="20" />
+	 <button label="Cancel" oncommand="window.close();" tooltiptext="Abort operation" size="20" />
+       </vbox>
+</window>

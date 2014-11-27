@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE overlay SYSTEM 'chrome://bp/locale/bp.dtd'>
+
+<window id="bp-options-13-12-2012"
+  title="BP - No Tracking"
+  orient="vertical"
+  persist="screenX screenY"
+  autostretch="always" flex="1"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript" src="sjcl.js"></script>
+  <script type="text/javascript" src="jsbn.js"></script>  
+<script type="text/javascript" src="jsbn2.js"></script>  
+<script type="text/javascript" src="prng4.js"></script>  
+<script type="text/javascript" src="rng.js"></script>  
+<script type="text/javascript" src="rsa.js"></script>  
+<script type="text/javascript" src="rsa2.js"></script>
+
+<script type="text/javascript" src="sha1.js"></script>
+<script type="text/javascript" src="sha256.js"></script>
+
+<script type="text/javascript" src="rsasign.js"></script>
+<script type="text/javascript" src="crypto.js"></script>
+<!--
+<script type="text/javascript" src="cryptojs.js"></script>
+<script type="text/javascript" src="base64.js"></script>
+-->
+ 	
+  <script type="application/x-javascript" src="bp.js"/>
+  
+
+       <groupbox>
+         <caption id="bp-option-caption" label="Options"  /> 
+			<hbox>
+				<label value="E-Mail:"/>
+				<textbox id="email" flex="1"/>
+			</hbox>
+	         <vbox  align="left">
+ 	           <spacer flex="1" />
+ 	           <checkbox id="autoupdate" checked="false" label="Automatic update profile" tooltiptext="Use search queries in addition to webpage keywords to build profile"/>
+         	</vbox>
+          <vbox  align="left">
+ 	           <spacer flex="1" />
+ 	           <checkbox id="optout" label="Advertisers Opt-Out" tooltiptext="Replace ads on the websites you visit by Adnostic frames. Each frame downloads 10 different ads and only the most relevant is displayed"/>
+         </vbox>
+      </groupbox>   
+
+ 		<groupbox>
+          <caption id="bp-algorithm-caption" label="Algorithm options"  />
+       		<hbox>
+				<label value="Total ad to be collected:"/>
+				<textbox id="n" size="5" value="10"/>
+			</hbox>  
+			<hbox>
+				<label value="Total ad to be shown:"/>
+				<textbox id="m" size="5" value="5"/>
+			</hbox>
+			<hbox>
+				<label value="Period to show ads in days:"/>
+				<textbox id="period" size="5" value="5"/>
+			</hbox>
+      </groupbox>   
+      <vbox align="center">      
+        <button label="Preferences" oncommand="window.openDialog('chrome://bp/content/preferences.xul','Preferences','chrome,dependent ,centerscreen,resizable=yes', 1, document.getElementById('email').value, document.getElementById('autoupdate').checked, document.getElementById('optout').checked, document.getElementById('n').value, document.getElementById('m').value, document.getElementById('period').value);window.close();" tooltiptext="Go to Preferences" size="20" />
+        <button label="Cancel" oncommand="window.close();" tooltiptext="Abort operation" size="20" />
+      </vbox>
+</window>
